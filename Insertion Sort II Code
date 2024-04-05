@@ -26,3 +26,5 @@
     }
     }
 
+Time complexity: O(n^2), involves nested loops
+Space Complexity: O(n) where n is the amount of space used by a recursive call
