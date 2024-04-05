@@ -1,0 +1,43 @@
+//Dynamic Programming Solution*
+    public static List<Integer> maxSubarray(List<Integer> arr) {
+    // Write your code here
+           int n = arr.size();
+        int[] dp = new int[n]; // dp[i] represents the maximum subarray sum ending at index i
+        int[] startIndex = new int[n]; // Store the start index of the maximum subarray ending at index i
+        int maxSum = arr.get(0);
+        int endIndex = 0;
+
+        // Base case: The maximum subarray sum ending at the first index is just the number itself
+        dp[0] = arr.get(0);
+        startIndex[0] = 0;
+
+        // Compute the maximum subarray sum ending at each index using dynamic programming
+        for (int i = 1; i < n; i++) {
+            int num = arr.get(i);
+            if (dp[i - 1] + num > num) {
+                dp[i] = dp[i - 1] + num;
+                startIndex[i] = startIndex[i - 1];
+            } else {
+                dp[i] = num;
+                startIndex[i] = i;
+            }
+            // Update the maximum sum and end index
+            if (dp[i] > maxSum) {
+                maxSum = dp[i];
+                endIndex = i;
+            }
+        }
+
+        // Construct the maximum subarray
+        List<Integer> subarray = new ArrayList<>();
+        for (int i = startIndex[endIndex]; i <= endIndex; i++) {
+            subarray.add(arr.get(i));
+        }
+
+        return subarray;
+    }
+/*This code, by all intents and purposes, should work. For some reason that I do not have time to photoshoot, Hackerrank won't run this code because 
+it says that the return type for the method does not match the type returned. I know this is not correct as the parameter it was is an arrayList of intefers,
+and that is the type of the returned variable subarray.*/
+
+//Recursive solution
